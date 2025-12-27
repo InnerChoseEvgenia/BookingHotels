@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>All</AnalysisMode>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <CodeAnalysisTreatWarningAsErrors>false</CodeAnalysisTreatWarningAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+</Project>

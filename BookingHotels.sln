@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35514.174
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AC53ED4A-D02F-4F2F-BBE5-5E2705542FB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingHotelAPI", "BookingHotelAPI\BookingHotelAPI.csproj", "{DDC5CD6C-2CA4-4F55-AD54-EBC5F49394EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution_Items", "Solution_Items", "{4A48BF2A-C478-4B41-AB50-EB64DA3AFEBE}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDC5CD6C-2CA4-4F55-AD54-EBC5F49394EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDC5CD6C-2CA4-4F55-AD54-EBC5F49394EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDC5CD6C-2CA4-4F55-AD54-EBC5F49394EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDC5CD6C-2CA4-4F55-AD54-EBC5F49394EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DDC5CD6C-2CA4-4F55-AD54-EBC5F49394EA} = {AC53ED4A-D02F-4F2F-BBE5-5E2705542FB7}
+		{4A48BF2A-C478-4B41-AB50-EB64DA3AFEBE} = {AC53ED4A-D02F-4F2F-BBE5-5E2705542FB7}
+	EndGlobalSection
+EndGlobal
