@@ -1,6 +1,77 @@
-@BookingHotelAPI_HostAddress = http://localhost:5106
+@BookingHotelAPI_HostAddress = https://localhost:7023
 
-GET {{BookingHotelAPI_HostAddress}}/weatherforecast/
-Accept: application/json
+
+GET {{BookingHotelAPI_HostAddress}}/api/countries
+
+###
+
+POST {{BookingHotelAPI_HostAddress}}/api/countries
+Content-Type: application/json
+
+{
+  "Name": "TCountri",
+  "ShortName": "TC"
+}
+
+###
+
+@Id=5
+DELETE {{BookingHotelAPI_HostAddress}}/api/countries/{{id}}
+
+###
+
+GET {{BookingHotelAPI_HostAddress}}/api/countries/{{id}}
+
+###
+
+PUT {{BookingHotelAPI_HostAddress}}/api/countries/{{id}}
+Content-Type: application/json
+
+{
+  "countryId": 5,
+  "Name": "3333",
+  "ShortName": "TC"
+}
+
+###
+
+GET {{BookingHotelAPI_HostAddress}}/api/hotels
+
+###
+
+POST {{BookingHotelAPI_HostAddress}}/api/hotels
+Content-Type: application/json
+
+{
+  "Name": "Test Hotel",
+  "Address": "123",
+  "Rating": 4.5,
+  "CountryId": 4
+}
+
+###
+@id=11
+DELETE {{BookingHotelAPI_HostAddress}}/api/hotels/{{id}}
+
+###
+
+GET {{BookingHotelAPI_HostAddress}}/api/hotels/{{id}}
+
+###
+
+PUT {{BookingHotelAPI_HostAddress}}/api/hotels/{{id}}
+Content-Type: application/json
+
+{
+  "Id": 11,
+  "Name": "III",
+  "Address": "123",
+  "Rating": 4.5,
+  "CountryId": 5,
+  "country": null
+}
+
+###
+
 
 ###
