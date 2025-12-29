@@ -1,13 +1,18 @@
+using BookingHotelAPI.Contracts;
 using BookingHotelAPI.Data;
+using BookingHotelAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the IoC container.
 var connectionString = builder.Configuration
     .GetConnectionString("HotelBookingDbConnectionString");
 builder.Services.AddDbContextPool<HotelBookingDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<ICountriesService, CountriesService>();
+builder.Services.AddScoped<IHotelsService, HotelsService>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(opt =>
