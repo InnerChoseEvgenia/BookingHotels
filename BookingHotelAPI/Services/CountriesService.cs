@@ -1,81 +1,108 @@
-﻿using BookingHotelAPI.Contracts;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using BookingHotelAPI.Constants;
 using BookingHotelAPI.Data;
 using BookingHotelAPI.DTOs.Countriy;
-using BookingHotelAPI.DTOs.Hotel;
+using BookingHotelAPI.Results;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookingHotelAPI.Services;
 
-public class CountriesService(HotelBookingDbContext context) : ICountriesService
+public class CountriesService(HotelBookingDbContext context, IMapper mapper) : ICountriesService
 {
-    public async Task<IEnumerable<GetCountriesDto>> GetCountriesAsync()
+    public async Task<Result<IEnumerable<GetCountriesDto>>> GetCountriesAsync()
     {
-        return await context.Countries
-              .Select(c => new GetCountriesDto(
-                  c.CountryId,
-                  c.Name,
-                  c.ShortName
-              ))
-              .ToListAsync();
+        var countries = await context.Countries
+            .ProjectTo<GetCountriesDto>(mapper.ConfigurationProvider)
+            .ToListAsync();
+
+        return Result<IEnumerable<GetCountriesDto>>.Success(countries);
     }
-    public async Task<GetCountryDto?> GetCountryAsync(int id)
+    public async Task<Result<GetCountryDto?>> GetCountryAsync(int id)
     {
         var country = await context.Countries
-             .Where(h => h.CountryId == id)
-             .Select(c => new GetCountryDto(
-                c.CountryId,
-                c.Name,
-                c.ShortName,
-                c.Hotels.Select(h => new GetHotelSlimDto(
-                      h.Id,
-                      h.Name,
-                      h.Address,
-                      h.Rating
-                      ))
-                   .ToList()
-                 ))
+            .Where(q => q.CountryId == id)
+            .ProjectTo<GetCountryDto>(mapper.ConfigurationProvider)
             .FirstOrDefaultAsync();
 
-        return country ?? null;
+        return country is null
+            ? Result<GetCountryDto>.Failure(new Error(ErrorCodes.NotFound, $"Country '{id}' was not found."))
+            : Result<GetCountryDto>.Success(country);
     }
 
-    public async Task<GetCountryDto> CreateCountryAsync(CreateCountryDto createDto)
+    public async Task<Result<GetCountryDto>> CreateCountryAsync(CreateCountryDto createDto)
     {
-        var country = new Country
+        try
         {
-            Name = createDto.Name,
-            ShortName = createDto.ShortName
-        };
+            var exists = await CountryExistsAsync(createDto.Name);
+            if (exists)
+            {
+                return Result<GetCountryDto>.Failure(new Error(ErrorCodes.Conflict, $"Country with name '{createDto.Name}' already exists."));
+            }
 
-        context.Countries.Add(country);
-        await context.SaveChangesAsync();
+            var country = mapper.Map<Country>(createDto);
+            context.Countries.Add(country);
+            await context.SaveChangesAsync();
 
-        return new GetCountryDto(
-             country.CountryId,
-             country.Name,
-             country.ShortName,
-             []
-         );
+            var dto = await context.Countries
+                .Where(c => c.CountryId == country.CountryId)
+                .ProjectTo<GetCountryDto>(mapper.ConfigurationProvider)
+                .FirstAsync();
+
+            return Result<GetCountryDto>.Success(dto);
+        }
+        catch
+        {
+            return Result<GetCountryDto>.Failure(new Error(ErrorCodes.Failure, "An unexpected error occurred while creating the country."));
+        }
     }
 
-    public async Task UpdateCountryAsync(int id, UpdateCountryDto updateDto)
+    public async Task<Result> UpdateCountryAsync(int id, UpdateCountryDto updateDto)
     {
-        var country = await context.Countries.FindAsync(id)??null;
+        try
+        {
+            if (id != updateDto.CountryId)
+            {
+                return Result.BadRequest(new Error(ErrorCodes.Validation, "Id route value does not match payload Id."));
+            }
 
-        country.Name = updateDto.Name;
-        country.ShortName = updateDto.ShortName;
-        context.Countries.Update(country);
-        await context.SaveChangesAsync();
+            var country = await context.Countries.FindAsync(id);
+            if (country is null)
+            {
+                return Result.NotFound(new Error(ErrorCodes.NotFound, $"Country '{id}' was not found."));
+            }
+
+            // Use AutoMapper to map incoming DTO onto the tracked entity
+            mapper.Map(updateDto, country);
+            await context.SaveChangesAsync();
+
+            return Result.Success();
+        }
+        catch
+        {
+            return Result.Failure(new Error(ErrorCodes.Failure, "An unexpected error occurred while updating the country."));
+        }
     }
 
-    
-
-    public async Task DeleteCountryAsync(int id)
+    public async Task<Result> DeleteCountryAsync(int id)
     {
-        var country = await context.Countries.FindAsync(id) ?? null;
+        try
+        {
+            var country = await context.Countries.FindAsync(id);
+            if (country is null)
+            {
+                return Result.NotFound(new Error(ErrorCodes.NotFound, $"Country '{id}' was not found."));
+            }
 
-        context.Countries.Remove(country);
-        await context.SaveChangesAsync();
+            context.Countries.Remove(country);
+            await context.SaveChangesAsync();
+
+            return Result.Success();
+        }
+        catch
+        {
+            return Result.Failure(new Error(ErrorCodes.Failure, "An unexpected error occurred while deleting the country."));
+        }
     }
 
     public async Task<bool> CountryExistsAsync(int id)
@@ -85,8 +112,7 @@ public class CountriesService(HotelBookingDbContext context) : ICountriesService
 
     public async Task<bool> CountryExistsAsync(string name)
     {
-        return await context.Countries.AnyAsync(e => e.Name == name);
+        return await context.Countries
+            .AnyAsync(c => c.Name.ToLower().Trim() == name.ToLower().Trim());
     }
-
-   
 }

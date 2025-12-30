@@ -1,5 +1,5 @@
-using BookingHotelAPI.Contracts;
 using BookingHotelAPI.Data;
+using BookingHotelAPI.MappingProfiles;
 using BookingHotelAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +13,12 @@ builder.Services.AddDbContextPool<HotelBookingDbContext>(options =>
 
 builder.Services.AddScoped<ICountriesService, CountriesService>();
 builder.Services.AddScoped<IHotelsService, HotelsService>();
+
+builder.Services.AddAutoMapper(cfg =>{
+    cfg.AddProfile<HotelMappingProfile>();
+    cfg.AddProfile<CountryMappingProfile>();
+});
+
 
 builder.Services.AddControllers()
     .AddJsonOptions(opt =>

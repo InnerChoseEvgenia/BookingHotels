@@ -9,13 +9,13 @@ POST {{BookingHotelAPI_HostAddress}}/api/countries
 Content-Type: application/json
 
 {
-  "Name": "TCountri",
+  "Name": "TCountriiiiiii",
   "ShortName": "TC"
 }
 
 ###
 
-@Id=5
+@Id=8
 DELETE {{BookingHotelAPI_HostAddress}}/api/countries/{{id}}
 
 ###
@@ -28,7 +28,7 @@ PUT {{BookingHotelAPI_HostAddress}}/api/countries/{{id}}
 Content-Type: application/json
 
 {
-  "countryId": 5,
+  "countryId": 8,
   "Name": "3333",
   "ShortName": "TC"
 }
@@ -43,14 +43,14 @@ POST {{BookingHotelAPI_HostAddress}}/api/hotels
 Content-Type: application/json
 
 {
-  "Name": "Test Hotel",
+  "Name": "TTTTest Hotel",
   "Address": "123",
   "Rating": 4.5,
-  "CountryId": 4
+  "CountryId": 5
 }
 
 ###
-@id=11
+@id=13
 DELETE {{BookingHotelAPI_HostAddress}}/api/hotels/{{id}}
 
 ###
@@ -63,7 +63,7 @@ PUT {{BookingHotelAPI_HostAddress}}/api/hotels/{{id}}
 Content-Type: application/json
 
 {
-  "Id": 11,
+  "Id": 13,
   "Name": "III",
   "Address": "123",
   "Rating": 4.5,
