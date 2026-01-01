@@ -1,4 +1,5 @@
 @BookingHotelAPI_HostAddress = https://localhost:7023
+@json = application/json
 
 
 GET {{BookingHotelAPI_HostAddress}}/api/countries
@@ -73,5 +74,24 @@ Content-Type: application/json
 
 ###
 
+POST {{BookingHotelAPI_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "user@localhost.com",
+  "password": "P@ssword1",
+  "firstName":"First",
+  "lastName": "Last"
+
+}
+
+###
+POST {{BookingHotelAPI_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user1@localhost.com",
+  "password": "P@ssword1"
+}
 
 ###

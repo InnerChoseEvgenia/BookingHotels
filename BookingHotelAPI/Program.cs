@@ -1,3 +1,4 @@
+using BookingHotelAPI.Contracts;
 using BookingHotelAPI.Data;
 using BookingHotelAPI.MappingProfiles;
 using BookingHotelAPI.Services;
@@ -11,8 +12,16 @@ var connectionString = builder.Configuration
 builder.Services.AddDbContextPool<HotelBookingDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
+       //.AddRoles<IdentityRole>()
+       .AddEntityFrameworkStores<HotelBookingDbContext>();
+
+builder.Services.AddAuthorization();
+
 builder.Services.AddScoped<ICountriesService, CountriesService>();
 builder.Services.AddScoped<IHotelsService, HotelsService>();
+builder.Services.AddScoped<IUsersService, UsersService>();
+
 
 builder.Services.AddAutoMapper(cfg =>{
     cfg.AddProfile<HotelMappingProfile>();
@@ -29,6 +38,8 @@ builder.Services.AddControllers()
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+app.MapGroup("api/defaultauth").MapIdentityApi<ApplicationUser>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
