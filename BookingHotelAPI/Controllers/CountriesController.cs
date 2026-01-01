@@ -1,5 +1,6 @@
 ﻿using BookingHotelAPI.DTOs.Countriy;
 using BookingHotelAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingHotelAPI.Controllers;
@@ -10,6 +11,7 @@ public class CountriesController(ICountriesService countriesService) : BaseApiCo
 {
     // GET: api/Countries
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<GetCountriesDto>>> GetCountries()
     {
         var result = await countriesService.GetCountriesAsync();

@@ -1,7 +1,10 @@
+using BookingHotelAPI.Constants;
 using BookingHotelAPI.Contracts;
 using BookingHotelAPI.Data;
+using BookingHotelAPI.Handlers;
 using BookingHotelAPI.MappingProfiles;
 using BookingHotelAPI.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +19,14 @@ builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
        //.AddRoles<IdentityRole>()
        .AddEntityFrameworkStores<HotelBookingDbContext>();
 
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = AuthenticationDefaults.BasicScheme;
+    options.DefaultChallengeScheme = AuthenticationDefaults.BasicScheme;
+})
+    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>(AuthenticationDefaults.BasicScheme, _ =>
+    { });
 builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<ICountriesService, CountriesService>();
