@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BookingHotelAPI.Constants;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookingHotelAPI.DTOs.Auth;
 
@@ -15,5 +16,6 @@ public class RegisterUserDto
 
     [Required, MaxLength(100)]
     public string LastName { get; set; } = string.Empty;
+    public string Role { get; set; } = RoleNames.User;
 
 }

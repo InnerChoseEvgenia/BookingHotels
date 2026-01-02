@@ -6,9 +6,9 @@
 GET {{BookingHotelAPI_HostAddress}}/api/countries
 # X-Api-Key: {{apiKey}}
 # Authorization: Basic dXNlcjFAbG9jYWxob3N0LmNvbTpQQHNzd29yZDE=
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYThhYjc1Mi1lOWEyLTRiNTItYjNkMS0yYmM3YWI1Y2Q1NGYiLCJlbWFpbCI6InVzc3NzQGxvY2FsaG9zdC5jb20iLCJqdGkiOiJjODAwZTY0OS00NzBmLTRmNDctOWIyMS0yMzliYzE1Yzg5ZTMiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJleHAiOjE3NjczNTY0OTAsImlzcyI6IkhvdGVsTGlzdGluZ0FQSSIsImF1ZCI6IkhvdGVsTGlzdGluZ0FQSUNsaWVudCJ9.4DgmPheljs7jyh1J6rSHqIX1Hq_AdwDSnkuBw3HFzQQ
-###
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYThhYjc1Mi1lOWEyLTRiNTItYjNkMS0yYmM3YWI1Y2Q1NGYiLCJlbWFpbCI6InVzc3NzQGxvY2FsaG9zdC5jb20iLCJqdGkiOiI3Y2NkZWE0MC1lOWE1LTQ0ODYtYWVjNS1kY2IyNjczZmY3ZmUiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJleHAiOjE3NjczNTg1NjMsImlzcyI6IkhvdGVsTGlzdGluZ0FQSSIsImF1ZCI6IkhvdGVsTGlzdGluZ0FQSUNsaWVudCJ9.Rk-r3gKU7a7vHbsnXgl6DAnp7Qk08TjOuyzb2AMAR2E
 
+###
 POST {{BookingHotelAPI_HostAddress}}/api/countries
 Content-Type: application/json
 
@@ -45,16 +45,16 @@ GET {{BookingHotelAPI_HostAddress}}/api/hotels
 
 POST {{BookingHotelAPI_HostAddress}}/api/hotels
 Content-Type: application/json
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmMC0wMzAzLTQ0MTItOTU5My0xMzcxZWM0YmMxYTQiLCJlbWFpbCI6ImFkbWluQGxvY2FsaG9zdC5jb20iLCJqdGkiOiIwYjJkYzAzZS1mNGU0LTRlN2MtYjIyMC04M2I0YTVhYzk3MzQiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzY3MzU4Njk0LCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ.aS5FJjQK-gRQ_FcWKMon6Z14SfBSWpTf87QKEyEr7bk
 {
-  "Name": "TTTTest Hotel",
+  "Name": "Admint Hotel",
   "Address": "123",
   "Rating": 4.5,
   "CountryId": 5
 }
 
 ###
-@id=13
+@id=16
 DELETE {{BookingHotelAPI_HostAddress}}/api/hotels/{{id}}
 
 ###
@@ -67,7 +67,7 @@ PUT {{BookingHotelAPI_HostAddress}}/api/hotels/{{id}}
 Content-Type: application/json
 
 {
-  "Id": 13,
+  "Id": 17,
   "Name": "III",
   "Address": "123",
   "Rating": 4.5,
@@ -81,10 +81,11 @@ POST {{BookingHotelAPI_HostAddress}}/api/auth/register
 Content-Type: application/json
 
 {
-  "email": "ussss@localhost.com",
+  "email": "admin@localhost.com",
   "password": "P@ssword1",
   "firstName":"First",
-  "lastName": "Last"
+  "lastName": "Last",
+  "role":"Administrator"
 
 }
 
@@ -93,7 +94,7 @@ POST {{BookingHotelAPI_HostAddress}}/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "ussss@localhost.com",
+  "email": "admin@localhost.com",
   "password": "P@ssword1"
 }
 

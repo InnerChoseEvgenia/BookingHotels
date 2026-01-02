@@ -19,5 +19,6 @@ public class HotelBookingDbContext(DbContextOptions<HotelBookingDbContext> optio
         {
             b.HasIndex(k => k.Key).IsUnique();
         });
+        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }
