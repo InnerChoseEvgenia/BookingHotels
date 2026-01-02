@@ -4,8 +4,9 @@
 
 
 GET {{BookingHotelAPI_HostAddress}}/api/countries
-X-Api-Key: {{apiKey}}
+# X-Api-Key: {{apiKey}}
 # Authorization: Basic dXNlcjFAbG9jYWxob3N0LmNvbTpQQHNzd29yZDE=
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYThhYjc1Mi1lOWEyLTRiNTItYjNkMS0yYmM3YWI1Y2Q1NGYiLCJlbWFpbCI6InVzc3NzQGxvY2FsaG9zdC5jb20iLCJqdGkiOiJjODAwZTY0OS00NzBmLTRmNDctOWIyMS0yMzliYzE1Yzg5ZTMiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJleHAiOjE3NjczNTY0OTAsImlzcyI6IkhvdGVsTGlzdGluZ0FQSSIsImF1ZCI6IkhvdGVsTGlzdGluZ0FQSUNsaWVudCJ9.4DgmPheljs7jyh1J6rSHqIX1Hq_AdwDSnkuBw3HFzQQ
 ###
 
 POST {{BookingHotelAPI_HostAddress}}/api/countries
@@ -80,7 +81,7 @@ POST {{BookingHotelAPI_HostAddress}}/api/auth/register
 Content-Type: application/json
 
 {
-  "email": "us@localhost.com",
+  "email": "ussss@localhost.com",
   "password": "P@ssword1",
   "firstName":"First",
   "lastName": "Last"
@@ -92,7 +93,7 @@ POST {{BookingHotelAPI_HostAddress}}/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "user1@localhost.com",
+  "email": "ussss@localhost.com",
   "password": "P@ssword1"
 }
 
