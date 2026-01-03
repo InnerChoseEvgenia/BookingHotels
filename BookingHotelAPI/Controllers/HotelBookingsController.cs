@@ -1,4 +1,5 @@
-﻿using BookingHotelAPI.Constants;
+﻿using BookingHotelAPI.AuthorizationFilters;
+using BookingHotelAPI.Constants;
 using BookingHotelAPI.DTOs.Booking;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,12 +10,18 @@ namespace BookingHotelAPI.Controllers;
 [ApiController]
 public class HotelBookingsController(IBookingService bookingService) : BaseApiController
 {
-    [HttpGet]
-    [Authorize(Roles = RoleNames.Administrator)]
-    [Authorize(Roles = "Administrator, Hotel Admin")]
-    public async Task<ActionResult<IEnumerable<GetBookingDto>>> GetBookings([FromRoute] int hotelId)
+    [HttpGet("/admin")]
+    [HotelOrSystemAdminAttribute]
+    public async Task<ActionResult<IEnumerable<GetBookingDto>>> GetBookingsAdmin([FromRoute] int hotelId)
     {
         var result = await bookingService.GetBookingsForHotelAsync(hotelId);
+        return ToActionResult(result);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<GetBookingDto>>> GetBookings([FromRoute] int hotelId)
+    {
+        var result = await bookingService.GetUserBookingsForHotelAsync(hotelId);
         return ToActionResult(result);
     }
 
@@ -43,7 +50,7 @@ public class HotelBookingsController(IBookingService bookingService) : BaseApiCo
     }
 
     [HttpPut("{bookingId:int}/admin/cancel")]
-    [Authorize(Roles = "Administrator, Hotel Admin")]
+    [HotelOrSystemAdminAttribute]
     public async Task<IActionResult> AdminCancelBooking([FromRoute] int hotelId, [FromRoute] int bookingId)
     {
         var result = await bookingService.AdminCancelBookingAsync(hotelId, bookingId);
@@ -51,7 +58,7 @@ public class HotelBookingsController(IBookingService bookingService) : BaseApiCo
     }
 
     [HttpPut("{bookingId:int}/admin/confirm")]
-    [Authorize(Roles = "Administrator, Hotel Admin")]
+    [HotelOrSystemAdminAttribute]
     public async Task<IActionResult> AdminConfirmBooking([FromRoute] int hotelId, [FromRoute] int bookingId)
     {
         var result = await bookingService.AdminConfirmBookingAsync(hotelId, bookingId);

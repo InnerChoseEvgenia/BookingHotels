@@ -16,7 +16,6 @@ public class BookingService(
     IUsersService usersService, 
     IMapper mapper) : IBookingService
 {
-
     public async Task<Result<IEnumerable<GetBookingDto>>> GetBookingsForHotelAsync(int hotelId)
     {
         var hotelExists = await context.Hotels.AnyAsync(h => h.Id == hotelId);
@@ -106,7 +105,33 @@ public class BookingService(
         return Result<GetBookingDto>.Success(created);
     }
 
+    public async Task<Result<IEnumerable<GetBookingDto>>> GetUserBookingsForHotelAsync(int hotelId)
+    {
+        var userId = usersService.UserId;
 
+        var hotelExists = await context.Hotels.AnyAsync(h => h.Id == hotelId);
+        if (!hotelExists)
+            return Result<IEnumerable<GetBookingDto>>.Failure(new Error(ErrorCodes.NotFound, $"Hotel '{hotelId}' was not found."));
+
+        var bookings = await context.Bookings
+            .Where(b => b.HotelId == hotelId && b.UserId == userId)
+            .OrderBy(b => b.CheckIn)
+            .Select(b => new GetBookingDto(
+               b.Id,
+               b.HotelId,
+               b.Hotel!.Name,
+               b.CheckIn,
+               b.CheckOut,
+               b.Guests,
+               b.TotalPrice,
+               b.Status.ToString(),
+               b.CreatedAtUtc,
+               b.UpdatedAtUtc
+               ))
+            .ToListAsync();
+
+        return Result<IEnumerable<GetBookingDto>>.Success(bookings);
+    }
 
     public async Task<Result<GetBookingDto>> UpdateBookingAsync(int hotelId, int bookingId, UpdateBookingDto dto)
     {
@@ -200,12 +225,6 @@ public class BookingService(
     public async Task<Result> AdminCancelBookingAsync(int hotelId, int bookingId)
     {
         var userId = usersService.UserId;
-
-        var isHotelAdminUser = await context.HotelAdmins
-            .AnyAsync(q => q.UserId == userId && q.HotelId == hotelId);
-
-        if (isHotelAdminUser)
-            return Result.Failure(new Error(ErrorCodes.Forbid, $"You are not an admin of the selected Hotel."));
 
         var booking = await context.Bookings
             .Include(b => b.Hotel)
