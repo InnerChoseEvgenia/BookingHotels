@@ -48,13 +48,6 @@ public class BookingService(
         if (string.IsNullOrWhiteSpace(userId))
             return Result<GetBookingDto>.Failure(new Error(ErrorCodes.Validation, "User is requared."));
 
-        var nights = dto.CheckOut.DayNumber - dto.CheckIn.DayNumber;
-        if (nights <= 0)
-            return Result<GetBookingDto>.Failure(new Error(ErrorCodes.Validation, "Check-out must be after check-in."));
-        
-        if (dto.Guests <= 0)
-            return Result<GetBookingDto>.Failure(new Error(ErrorCodes.Validation, "Guests must be at least one."));
-
         bool overlaps = await context.Bookings.AnyAsync(
          b => b.HotelId == dto.HotelId
         && b.Status != BookingStatus.Cancelled
@@ -72,7 +65,7 @@ public class BookingService(
         if (hotel is null)
             return Result<GetBookingDto>.Failure(new Error(ErrorCodes.NotFound, $"Hotel '{dto.HotelId}' was not found."));
 
-
+        var nights = dto.CheckOut.DayNumber - dto.CheckIn.DayNumber;
         var totalPrice = hotel.PerNightRate * nights;
 
         var booking = new Booking
@@ -139,13 +132,6 @@ public class BookingService(
 
         if (string.IsNullOrWhiteSpace(userId))
             return Result<GetBookingDto>.Failure(new Error(ErrorCodes.Validation, "User is requared."));
-
-        var nights = dto.CheckOut.DayNumber - dto.CheckIn.DayNumber;
-        if (nights <= 0)
-            return Result<GetBookingDto>.Failure(new Error(ErrorCodes.Validation, "Check-out must be after check-in."));
-
-        if (dto.Guests <= 0)
-            return Result<GetBookingDto>.Failure(new Error(ErrorCodes.Validation, "Guests must be at least one."));
 
         bool overlaps = await context.Bookings.AnyAsync(
         b => b.HotelId == hotelId
