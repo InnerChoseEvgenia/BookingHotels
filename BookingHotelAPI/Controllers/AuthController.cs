@@ -1,5 +1,5 @@
-﻿using BookingHotelAPI.Contracts;
-using BookingHotelAPI.DTOs.Auth;
+﻿using BookingHotelAPI.Application.Contracts;
+using BookingHotelAPI.Application.DTOs.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

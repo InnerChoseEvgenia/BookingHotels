@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution_Items", "Solution_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingHotelAPI.Common", "src\BookingHotelAPI.Common\BookingHotelAPI.Common.csproj", "{D4B5AF4E-282D-4005-9C62-12212E98FBC6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingHotelsAPI.Domain", "src\BookingHotelsAPI.Domain\BookingHotelsAPI.Domain.csproj", "{FF176DCD-EA12-4668-8717-465018C4DA0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingHotelsAPI.Application", "src\BookingHotelsAPI.Application\BookingHotelsAPI.Application.csproj", "{75C7BB9D-4ED5-44EE-B132-BDAE11892119}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +33,14 @@ Global
 		{D4B5AF4E-282D-4005-9C62-12212E98FBC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4B5AF4E-282D-4005-9C62-12212E98FBC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4B5AF4E-282D-4005-9C62-12212E98FBC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF176DCD-EA12-4668-8717-465018C4DA0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF176DCD-EA12-4668-8717-465018C4DA0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF176DCD-EA12-4668-8717-465018C4DA0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF176DCD-EA12-4668-8717-465018C4DA0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75C7BB9D-4ED5-44EE-B132-BDAE11892119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75C7BB9D-4ED5-44EE-B132-BDAE11892119}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75C7BB9D-4ED5-44EE-B132-BDAE11892119}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75C7BB9D-4ED5-44EE-B132-BDAE11892119}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,5 +49,7 @@ Global
 		{DDC5CD6C-2CA4-4F55-AD54-EBC5F49394EA} = {AC53ED4A-D02F-4F2F-BBE5-5E2705542FB7}
 		{4A48BF2A-C478-4B41-AB50-EB64DA3AFEBE} = {AC53ED4A-D02F-4F2F-BBE5-5E2705542FB7}
 		{D4B5AF4E-282D-4005-9C62-12212E98FBC6} = {AC53ED4A-D02F-4F2F-BBE5-5E2705542FB7}
+		{FF176DCD-EA12-4668-8717-465018C4DA0F} = {AC53ED4A-D02F-4F2F-BBE5-5E2705542FB7}
+		{75C7BB9D-4ED5-44EE-B132-BDAE11892119} = {AC53ED4A-D02F-4F2F-BBE5-5E2705542FB7}
 	EndGlobalSection
 EndGlobal

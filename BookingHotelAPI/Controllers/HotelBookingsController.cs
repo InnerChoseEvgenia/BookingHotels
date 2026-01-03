@@ -1,6 +1,6 @@
-﻿using BookingHotelAPI.AuthorizationFilters;
-using BookingHotelAPI.Contracts;
-using BookingHotelAPI.DTOs.Booking;
+﻿using BookingHotelAPI.Application.Contracts;
+using BookingHotelAPI.Application.DTOs.Auth;
+using BookingHotelAPI.AuthorizationFilters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingHotelAPI.Controllers;

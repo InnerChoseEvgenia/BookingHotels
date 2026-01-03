@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
-using BookingHotelAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using BookingHotelAPI.Common.Constants;
+using BookingHotelAPI.Domain.Data;
 
 namespace BookingHotelAPI.AuthorizationFilters;
 

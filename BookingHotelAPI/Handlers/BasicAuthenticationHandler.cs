@@ -1,11 +1,10 @@
-﻿using Azure.Core;
-using BookingHotelAPI.Contracts;
-using BookingHotelAPI.DTOs.Auth;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Text;
+using BookingHotelAPI.Application.Contracts;
+using BookingHotelAPI.Application.DTOs.Auth;
 
 namespace BookingHotelAPI.Handlers;
 

@@ -1,5 +1,5 @@
-﻿using BookingHotelAPI.Common.Constants;
-using BookingHotelAPI.Contracts;
+﻿using BookingHotelAPI.Application.Contracts;
+using BookingHotelAPI.Common.Constants;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;

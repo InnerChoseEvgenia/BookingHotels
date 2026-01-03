@@ -1,9 +1,11 @@
+using BookingHotelAPI.Application.Contracts;
+using BookingHotelAPI.Application.MappingProfiles;
+using BookingHotelAPI.Application.Services;
 using BookingHotelAPI.Common.Constants;
 using BookingHotelAPI.Common.Models.Config;
-using BookingHotelAPI.Contracts;
-using BookingHotelAPI.Data;
+using BookingHotelAPI.Domain.Data;
+using BookingHotelAPI.Domain.Entities;
 using BookingHotelAPI.Handlers;
-using BookingHotelAPI.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -64,7 +66,7 @@ builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IApiKeyValidatorService, ApiKeyValidatorService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 
-builder.Services.AddAutoMapper(cfg => { }, Assembly.GetExecutingAssembly());
+builder.Services.AddAutoMapper(cfg => { }, typeof(HotelMappingProfile).Assembly);
 
 
 builder.Services.AddControllers()

@@ -1,0 +1,14 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BookingHotelAPI.Application.DTOs.Auth;
+
+public class CreateCountryDto
+{
+    [Required]
+    [MaxLength(50)]
+    public required string Name { get; set; }
+
+    [Required]
+    [MaxLength(3)]
+    public required string ShortName { get; set; }
+}

@@ -1,9 +1,8 @@
-﻿using BookingHotelAPI.Common.Constants;
-using BookingHotelAPI.DTOs.Hotel;
-using BookingHotelAPI.Services;
+﻿using BookingHotelAPI.Application.Contracts;
+using BookingHotelAPI.Application.DTOs.Auth;
+using BookingHotelAPI.Common.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BookingHotelAPI.Controllers;
 

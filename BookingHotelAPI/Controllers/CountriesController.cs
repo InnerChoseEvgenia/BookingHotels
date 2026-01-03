@@ -1,6 +1,6 @@
-﻿using BookingHotelAPI.Common.Constants;
-using BookingHotelAPI.DTOs.Countriy;
-using BookingHotelAPI.Services;
+﻿using BookingHotelAPI.Application.Contracts;
+using BookingHotelAPI.Application.DTOs.Auth;
+using BookingHotelAPI.Common.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
