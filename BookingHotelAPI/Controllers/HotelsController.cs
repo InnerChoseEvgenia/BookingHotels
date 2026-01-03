@@ -1,5 +1,7 @@
-﻿using BookingHotelAPI.DTOs.Hotel;
+﻿using BookingHotelAPI.Constants;
+using BookingHotelAPI.DTOs.Hotel;
 using BookingHotelAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +26,7 @@ public class HotelsController(IHotelsService hotelsService) : BaseApiController
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = RoleNames.Administrator)]
     public async Task<IActionResult> PutHotel(int id, UpdateHotelDto hotelDto)
     {
         if (id != hotelDto.Id)
@@ -35,6 +38,7 @@ public class HotelsController(IHotelsService hotelsService) : BaseApiController
     }
 
     [HttpPost]
+    [Authorize(Roles = RoleNames.Administrator)]
     public async Task<ActionResult<GetHotelDto>> PostHotel(CreateHotelDto hotelDto)
     {
         var result = await hotelsService.CreateHotelAsync(hotelDto);
@@ -43,6 +47,7 @@ public class HotelsController(IHotelsService hotelsService) : BaseApiController
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = RoleNames.Administrator)]
     public async Task<IActionResult> DeleteHotel(int id)
     {
         var result = await hotelsService.DeleteHotelAsync(id);

@@ -13,7 +13,8 @@ namespace BookingHotelAPI.Services;
 
 public class UsersService(
     UserManager<ApplicationUser> userManager, 
-    IConfiguration configuration) 
+    IConfiguration configuration,
+    IHttpContextAccessor httpContextAccessor) 
     : IUsersService
 {
     public async Task<Result<RegisteredUserDto>> RegisterAsync(RegisterUserDto registerUserDto)
@@ -103,4 +104,14 @@ public class UsersService(
         // Return token value
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+
+    public string UserId => httpContextAccessor?
+            .HttpContext?
+            .User?
+            .FindFirst(JwtRegisteredClaimNames.Sub)?.Value
+        ?? httpContextAccessor?
+            .HttpContext?
+            .User?
+            .FindFirst(ClaimTypes.NameIdentifier)?.Value
+        ?? string.Empty;
 }

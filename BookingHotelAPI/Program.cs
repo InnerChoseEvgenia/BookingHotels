@@ -22,6 +22,7 @@ builder.Services.AddDbContextPool<HotelBookingDbContext>(options =>
 builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
        .AddRoles<IdentityRole>()
        .AddEntityFrameworkStores<HotelBookingDbContext>();
+builder.Services.AddHttpContextAccessor();
 
 
 builder.Services.AddAuthentication(options =>
@@ -51,6 +52,7 @@ builder.Services.AddScoped<ICountriesService, CountriesService>();
 builder.Services.AddScoped<IHotelsService, HotelsService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IApiKeyValidatorService, ApiKeyValidatorService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 builder.Services.AddAutoMapper(cfg =>{
     cfg.AddProfile<HotelMappingProfile>();
