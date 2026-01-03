@@ -1,8 +1,10 @@
 ﻿using BookingHotelAPI.Common.Constants;
+using BookingHotelAPI.Common.Models.Config;
 using BookingHotelAPI.Contracts;
 using BookingHotelAPI.Data;
 using BookingHotelAPI.DTOs.Auth;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -11,8 +13,8 @@ using System.Text;
 namespace BookingHotelAPI.Services;
 
 public class UsersService(
-    UserManager<ApplicationUser> userManager, 
-    IConfiguration configuration,
+    UserManager<ApplicationUser> userManager,
+    IOptions<JwtSettings> jwtOptions,
     IHttpContextAccessor httpContextAccessor,
     HotelBookingDbContext context) 
     : IUsersService
@@ -101,15 +103,15 @@ public class UsersService(
         claims = claims.Union(roleClaims).ToList();
 
         // Set JWT Key credentials
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:Key"]));
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Value.Key));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         // Create an encoded token
         var token = new JwtSecurityToken(
-            issuer: configuration["JwtSettings:Issuer"],
-            audience: configuration["JwtSettings:Audience"],
+            issuer: jwtOptions.Value.Issuer,
+            audience: jwtOptions.Value.Audience,
             claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(Convert.ToInt32(configuration["JwtSettings:DurationInMinutes"])),
+            expires: DateTime.UtcNow.AddMinutes(Convert.ToInt32(jwtOptions.Value.DurationInMinutes)),
             signingCredentials: credentials
             );
 
