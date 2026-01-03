@@ -1,8 +1,7 @@
-﻿using BookingHotelAPI.Constants;
+﻿using BookingHotelAPI.Common.Constants;
 using BookingHotelAPI.Contracts;
 using BookingHotelAPI.Data;
 using BookingHotelAPI.DTOs.Auth;
-using BookingHotelAPI.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -39,7 +38,7 @@ public class UsersService(
         await userManager.AddToRoleAsync(user, registerUserDto.Role);
 
         // If Hotel Admin, add to HotelAdmins table
-        if (registerUserDto.Role == "Hotel Admin")
+        if (registerUserDto.Role == RoleNames.HotelAdmin)
         {
             var hotelAdmin = context.HotelAdmins.Add(
                 new HotelAdmin

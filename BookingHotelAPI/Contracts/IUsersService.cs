@@ -1,5 +1,5 @@
 ﻿using BookingHotelAPI.DTOs.Auth;
-using BookingHotelAPI.Results;
+using BookingHotelAPI.Common.Constants;
 
 namespace BookingHotelAPI.Contracts;
 

@@ -1,5 +1,4 @@
-﻿using BookingHotelAPI.Constants;
-using BookingHotelAPI.Results;
+﻿using BookingHotelAPI.Common.Constants;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingHotelAPI.Controllers;

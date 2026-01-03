@@ -1,5 +1,5 @@
 ﻿using BookingHotelAPI.DTOs.Hotel;
-using BookingHotelAPI.Results;
+using BookingHotelAPI.Common.Constants;
 
 namespace BookingHotelAPI.Services
 {

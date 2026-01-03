@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using BookingHotelAPI.Constants;
+using BookingHotelAPI.Common.Constants;
+
 
 namespace BookingHotelAPI.Data.Configurations;
 

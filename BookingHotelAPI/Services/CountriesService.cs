@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using BookingHotelAPI.Constants;
+using BookingHotelAPI.Common.Constants;
 using BookingHotelAPI.Data;
 using BookingHotelAPI.DTOs.Countriy;
-using BookingHotelAPI.Results;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookingHotelAPI.Services;

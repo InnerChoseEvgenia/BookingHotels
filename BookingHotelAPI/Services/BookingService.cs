@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using BookingHotelAPI.Constants;
+using BookingHotelAPI.Common.Constants;
 using BookingHotelAPI.Contracts;
 using BookingHotelAPI.Data;
 using BookingHotelAPI.DTOs.Booking;
-using BookingHotelAPI.Enums;
-using BookingHotelAPI.Results;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace BookingHotelAPI.Services;
 

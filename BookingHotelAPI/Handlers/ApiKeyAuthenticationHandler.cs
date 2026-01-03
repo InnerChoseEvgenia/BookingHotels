@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using BookingHotelAPI.Constants;
+﻿using BookingHotelAPI.Common.Constants;
 using BookingHotelAPI.Contracts;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;

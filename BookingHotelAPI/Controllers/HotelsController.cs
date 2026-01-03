@@ -1,4 +1,4 @@
-﻿using BookingHotelAPI.Constants;
+﻿using BookingHotelAPI.Common.Constants;
 using BookingHotelAPI.DTOs.Hotel;
 using BookingHotelAPI.Services;
 using Microsoft.AspNetCore.Authorization;

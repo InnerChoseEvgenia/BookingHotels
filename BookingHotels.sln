@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution_Items", "Solution_
 		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingHotelAPI.Common", "src\BookingHotelAPI.Common\BookingHotelAPI.Common.csproj", "{D4B5AF4E-282D-4005-9C62-12212E98FBC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{DDC5CD6C-2CA4-4F55-AD54-EBC5F49394EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDC5CD6C-2CA4-4F55-AD54-EBC5F49394EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDC5CD6C-2CA4-4F55-AD54-EBC5F49394EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4B5AF4E-282D-4005-9C62-12212E98FBC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4B5AF4E-282D-4005-9C62-12212E98FBC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4B5AF4E-282D-4005-9C62-12212E98FBC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4B5AF4E-282D-4005-9C62-12212E98FBC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,5 +36,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{DDC5CD6C-2CA4-4F55-AD54-EBC5F49394EA} = {AC53ED4A-D02F-4F2F-BBE5-5E2705542FB7}
 		{4A48BF2A-C478-4B41-AB50-EB64DA3AFEBE} = {AC53ED4A-D02F-4F2F-BBE5-5E2705542FB7}
+		{D4B5AF4E-282D-4005-9C62-12212E98FBC6} = {AC53ED4A-D02F-4F2F-BBE5-5E2705542FB7}
 	EndGlobalSection
 EndGlobal

@@ -1,4 +1,4 @@
-﻿using BookingHotelAPI.Constants;
+﻿using BookingHotelAPI.Common.Constants;
 using System.ComponentModel.DataAnnotations;
 
 namespace BookingHotelAPI.DTOs.Auth;
@@ -22,7 +22,7 @@ public class RegisterUserDto : IValidatableObject
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        if (Role == "Hotel Admin" && AssociatedHotelId.GetValueOrDefault() < 1)
+        if (Role == RoleNames.HotelAdmin && AssociatedHotelId.GetValueOrDefault() < 1)
         {
             yield return new ValidationResult(
                 "Please provide a valid Hotel Id",

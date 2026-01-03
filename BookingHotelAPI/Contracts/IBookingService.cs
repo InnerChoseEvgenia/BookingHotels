@@ -1,7 +1,7 @@
 ﻿using BookingHotelAPI.DTOs.Booking;
-using BookingHotelAPI.Results;
+using BookingHotelAPI.Common.Constants;
 
-namespace BookingHotelAPI.Constants;
+namespace BookingHotelAPI.Contracts;
 
 public interface IBookingService
 {

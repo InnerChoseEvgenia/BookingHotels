@@ -1,4 +1,4 @@
-﻿using BookingHotelAPI.Enums;
+﻿using BookingHotelAPI.Common.Constants;
 
 namespace BookingHotelAPI.Data;
 

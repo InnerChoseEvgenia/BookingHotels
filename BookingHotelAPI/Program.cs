@@ -1,8 +1,7 @@
-using BookingHotelAPI.Constants;
+using BookingHotelAPI.Common.Constants;
 using BookingHotelAPI.Contracts;
 using BookingHotelAPI.Data;
 using BookingHotelAPI.Handlers;
-using BookingHotelAPI.MappingProfiles;
 using BookingHotelAPI.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

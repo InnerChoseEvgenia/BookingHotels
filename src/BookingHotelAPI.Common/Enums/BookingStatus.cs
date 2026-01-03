@@ -1,5 +1,4 @@
-﻿namespace BookingHotelAPI.Enums;
-
+﻿namespace BookingHotelAPI.Common.Constants;
 public enum BookingStatus
 {
     Pending = 0,
