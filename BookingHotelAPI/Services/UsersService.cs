@@ -14,7 +14,8 @@ namespace BookingHotelAPI.Services;
 public class UsersService(
     UserManager<ApplicationUser> userManager, 
     IConfiguration configuration,
-    IHttpContextAccessor httpContextAccessor) 
+    IHttpContextAccessor httpContextAccessor,
+    HotelBookingDbContext context) 
     : IUsersService
 {
     public async Task<Result<RegisteredUserDto>> RegisterAsync(RegisterUserDto registerUserDto)
@@ -36,6 +37,18 @@ public class UsersService(
         }
 
         await userManager.AddToRoleAsync(user, registerUserDto.Role);
+
+        // If Hotel Admin, add to HotelAdmins table
+        if (registerUserDto.Role == "Hotel Admin")
+        {
+            var hotelAdmin = context.HotelAdmins.Add(
+                new HotelAdmin
+                {
+                    UserId = user.Id,
+                    HotelId = registerUserDto.AssociatedHotelId.GetValueOrDefault()
+                });
+            await context.SaveChangesAsync();
+        }
 
 
         var registeredUser = new RegisteredUserDto

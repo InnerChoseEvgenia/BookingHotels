@@ -10,7 +10,7 @@ namespace BookingHotelAPI.Controllers;
 [ApiController]
 public class HotelBookingsController(IBookingService bookingService) : BaseApiController
 {
-    [HttpGet("/admin")]
+    [HttpGet("admin")]
     [HotelOrSystemAdminAttribute]
     public async Task<ActionResult<IEnumerable<GetBookingDto>>> GetBookingsAdmin([FromRoute] int hotelId)
     {

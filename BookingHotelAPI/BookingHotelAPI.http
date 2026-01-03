@@ -1,38 +1,44 @@
 @BookingHotelAPI_HostAddress = https://localhost:7023
 @json = application/json
 @apiKey=dXNlcjFAbG9jYWxob3N0LmNvbTpQQHNzd29yZDE=
-
+### Variables
+@json = application/json
+@hotelId=3
+@bookingId=7
+@today={{$localDatetime iso8601}} 
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmMC0wMzAzLTQ0MTItOTU5My0xMzcxZWM0YmMxYTQiLCJlbWFpbCI6ImFkbWluQGxvY2FsaG9zdC5jb20iLCJqdGkiOiJmMmU4Njg5OC05OWU0LTRmODgtYjEwZi1lYjA2ODljNTY5YzIiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzY3NDUxMzY1LCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ.HbuvXMbAZH9Ci_uBrpLea53_-xk3n4i2FdtRlFkOOEk
 
 GET {{BookingHotelAPI_HostAddress}}/api/countries
 # X-Api-Key: {{apiKey}}
 # Authorization: Basic dXNlcjFAbG9jYWxob3N0LmNvbTpQQHNzd29yZDE=
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYThhYjc1Mi1lOWEyLTRiNTItYjNkMS0yYmM3YWI1Y2Q1NGYiLCJlbWFpbCI6InVzc3NzQGxvY2FsaG9zdC5jb20iLCJqdGkiOiI3Y2NkZWE0MC1lOWE1LTQ0ODYtYWVjNS1kY2IyNjczZmY3ZmUiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJleHAiOjE3NjczNTg1NjMsImlzcyI6IkhvdGVsTGlzdGluZ0FQSSIsImF1ZCI6IkhvdGVsTGlzdGluZ0FQSUNsaWVudCJ9.Rk-r3gKU7a7vHbsnXgl6DAnp7Qk08TjOuyzb2AMAR2E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmMC0wMzAzLTQ0MTItOTU5My0xMzcxZWM0YmMxYTQiLCJlbWFpbCI6ImFkbWluQGxvY2FsaG9zdC5jb20iLCJqdGkiOiJmMmU4Njg5OC05OWU0LTRmODgtYjEwZi1lYjA2ODljNTY5YzIiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzY3NDUxMzY1LCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ.HbuvXMbAZH9Ci_uBrpLea53_-xk3n4i2FdtRlFkOOEk
 
 ###
 POST {{BookingHotelAPI_HostAddress}}/api/countries
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmMC0wMzAzLTQ0MTItOTU5My0xMzcxZWM0YmMxYTQiLCJlbWFpbCI6ImFkbWluQGxvY2FsaG9zdC5jb20iLCJqdGkiOiI1MGMyYmQ0NS03OGE0LTRhYWMtOTEzMy1kNjY2Y2MwNzZkNmUiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzY3NDUxODE2LCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ.tMVQPR3W1zj3yDsFNItEPszHapN-ZoBzZu1WATwyVFc
 
 {
-  "Name": "TCountriiiiiii",
+  "Name": "T",
   "ShortName": "TC"
 }
 
 ###
 
-@Id=8
+@Id=5
 DELETE {{BookingHotelAPI_HostAddress}}/api/countries/{{id}}
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmMC0wMzAzLTQ0MTItOTU5My0xMzcxZWM0YmMxYTQiLCJlbWFpbCI6ImFkbWluQGxvY2FsaG9zdC5jb20iLCJqdGkiOiI1MGMyYmQ0NS03OGE0LTRhYWMtOTEzMy1kNjY2Y2MwNzZkNmUiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzY3NDUxODE2LCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ.tMVQPR3W1zj3yDsFNItEPszHapN-ZoBzZu1WATwyVFc
 ###
 
 GET {{BookingHotelAPI_HostAddress}}/api/countries/{{id}}
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmMC0wMzAzLTQ0MTItOTU5My0xMzcxZWM0YmMxYTQiLCJlbWFpbCI6ImFkbWluQGxvY2FsaG9zdC5jb20iLCJqdGkiOiJmMmU4Njg5OC05OWU0LTRmODgtYjEwZi1lYjA2ODljNTY5YzIiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzY3NDUxMzY1LCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ.HbuvXMbAZH9Ci_uBrpLea53_-xk3n4i2FdtRlFkOOEk
 ###
 
 PUT {{BookingHotelAPI_HostAddress}}/api/countries/{{id}}
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmMC0wMzAzLTQ0MTItOTU5My0xMzcxZWM0YmMxYTQiLCJlbWFpbCI6ImFkbWluQGxvY2FsaG9zdC5jb20iLCJqdGkiOiJmMmU4Njg5OC05OWU0LTRmODgtYjEwZi1lYjA2ODljNTY5YzIiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzY3NDUxMzY1LCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ.HbuvXMbAZH9Ci_uBrpLea53_-xk3n4i2FdtRlFkOOEk
 
-{
-  "countryId": 8,
+  "countryId": 5,
   "Name": "3333",
   "ShortName": "TC"
 }
@@ -40,34 +46,36 @@ Content-Type: application/json
 ###
 
 GET {{BookingHotelAPI_HostAddress}}/api/hotels
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmMC0wMzAzLTQ0MTItOTU5My0xMzcxZWM0YmMxYTQiLCJlbWFpbCI6ImFkbWluQGxvY2FsaG9zdC5jb20iLCJqdGkiOiJmMmU4Njg5OC05OWU0LTRmODgtYjEwZi1lYjA2ODljNTY5YzIiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzY3NDUxMzY1LCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ.HbuvXMbAZH9Ci_uBrpLea53_-xk3n4i2FdtRlFkOOEk
 
 ###
 
 POST {{BookingHotelAPI_HostAddress}}/api/hotels
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmMC0wMzAzLTQ0MTItOTU5My0xMzcxZWM0YmMxYTQiLCJlbWFpbCI6ImFkbWluQGxvY2FsaG9zdC5jb20iLCJqdGkiOiIwYjJkYzAzZS1mNGU0LTRlN2MtYjIyMC04M2I0YTVhYzk3MzQiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzY3MzU4Njk0LCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ.aS5FJjQK-gRQ_FcWKMon6Z14SfBSWpTf87QKEyEr7bk
-{
-  "Name": "Admint Hotel",
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmMC0wMzAzLTQ0MTItOTU5My0xMzcxZWM0YmMxYTQiLCJlbWFpbCI6ImFkbWluQGxvY2FsaG9zdC5jb20iLCJqdGkiOiJmMmU4Njg5OC05OWU0LTRmODgtYjEwZi1lYjA2ODljNTY5YzIiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzY3NDUxMzY1LCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ.HbuvXMbAZH9Ci_uBrpLea53_-xk3n4i2FdtRlFkOOEk
+ {
+  "Name": "Adin Hotel",
   "Address": "123",
   "Rating": 4.5,
   "CountryId": 5
 }
 
 ###
-@id=16
+@id=15
 DELETE {{BookingHotelAPI_HostAddress}}/api/hotels/{{id}}
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmMC0wMzAzLTQ0MTItOTU5My0xMzcxZWM0YmMxYTQiLCJlbWFpbCI6ImFkbWluQGxvY2FsaG9zdC5jb20iLCJqdGkiOiIzZDAwMTI3Zi00MzNlLTQ1YjYtOTA5MS1jNTM1ODQ3Y2YzZGYiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzY3NDUyMTc2LCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ._tsqZmfzhRa51-A-BtbhLo7UKBVvm23iMsCxXU-FTy8
 ###
 
 GET {{BookingHotelAPI_HostAddress}}/api/hotels/{{id}}
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmMC0wMzAzLTQ0MTItOTU5My0xMzcxZWM0YmMxYTQiLCJlbWFpbCI6ImFkbWluQGxvY2FsaG9zdC5jb20iLCJqdGkiOiIzZDAwMTI3Zi00MzNlLTQ1YjYtOTA5MS1jNTM1ODQ3Y2YzZGYiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzY3NDUyMTc2LCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ._tsqZmfzhRa51-A-BtbhLo7UKBVvm23iMsCxXU-FTy8
+###
 ###
 
 PUT {{BookingHotelAPI_HostAddress}}/api/hotels/{{id}}
 Content-Type: application/json
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmMC0wMzAzLTQ0MTItOTU5My0xMzcxZWM0YmMxYTQiLCJlbWFpbCI6ImFkbWluQGxvY2FsaG9zdC5jb20iLCJqdGkiOiIzZDAwMTI3Zi00MzNlLTQ1YjYtOTA5MS1jNTM1ODQ3Y2YzZGYiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzY3NDUyMTc2LCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ._tsqZmfzhRa51-A-BtbhLo7UKBVvm23iMsCxXU-FTy8
 {
-  "Id": 17,
+  "Id": 13,
   "Name": "III",
   "Address": "123",
   "Rating": 4.5,
@@ -81,11 +89,11 @@ POST {{BookingHotelAPI_HostAddress}}/api/auth/register
 Content-Type: application/json
 
 {
-  "email": "admin@localhost.com",
+  "email": "Hotel_Admin@localhost.com",
   "password": "P@ssword1",
   "firstName":"First",
   "lastName": "Last",
-  "role":"Administrator"
+  "role":"Hotel Admin"
 
 }
 
@@ -97,5 +105,21 @@ Content-Type: application/json
   "email": "admin@localhost.com",
   "password": "P@ssword1"
 }
+
+###
+ # 
+
+  "email": "Hotel_Admin@localhost.com",
+  "password": "P@ssword1"
+###
+PUT {{BookingHotelAPI_HostAddress}}/api/hotels/{hotelId:int}/bookings/{bookingId:int}/admin/cancel
+
+###
+
+PUT {{BookingHotelAPI_HostAddress}}/api/hotels/{hotelId:int}/bookings/{bookingId:int}/admin/confirm
+
+###
+
+PUT {{BookingHotelAPI_HostAddress}}/api/hotels/{hotelId:int}/bookings/{bookingId:int}/cancel
 
 ###

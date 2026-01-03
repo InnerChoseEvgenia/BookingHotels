@@ -9,6 +9,7 @@ namespace BookingHotelAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class HotelsController(IHotelsService hotelsService) : BaseApiController
 {
     [HttpGet]
