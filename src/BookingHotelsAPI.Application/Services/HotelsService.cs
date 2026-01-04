@@ -4,6 +4,7 @@ using BookingHotelAPI.Application.Contracts;
 using BookingHotelAPI.Application.DTOs.Auth;
 using BookingHotelAPI.Common.Constants;
 using BookingHotelAPI.Common.Models.Extentions;
+using BookingHotelAPI.Common.Models.Filtering;
 using BookingHotelAPI.Common.Models.Paging;
 using BookingHotelAPI.Domain.Data;
 using BookingHotelAPI.Domain.Entities;
@@ -15,13 +16,58 @@ public class HotelsService(HotelBookingDbContext context,
     ICountriesService countriesService, 
     IMapper mapper) : IHotelsService
 {
-    public async Task<Result<PagedResult<GetHotelDto>>> GetHotelsAsync(PaginationParameters paginationParameters)
+    public async Task<Result<PagedResult<GetHotelDto>>> GetHotelsAsync(PaginationParameters paginationParameters, HotelFilterParameters filters)
     {
-        var hotels = await context.Hotels
-                    .ProjectTo<GetHotelDto>(mapper.ConfigurationProvider)
-                    .ToPagedResultAsync(paginationParameters);
+        var query = context.Hotels.AsQueryable();//AsQueryable() позволяет динамически построить запрос к базе данных
+        if (filters.CountryId.HasValue)
+        {
+            query = query.Where(q => q.CountryId == filters.CountryId);
+        }
+        if (filters.MinRating.HasValue)
+            query = query.Where(h => h.Rating >= filters.MinRating);
 
+        if (filters.MaxRating.HasValue)
+            query = query.Where(h => h.Rating <= filters.MaxRating);
 
+        if (filters.MinPrice.HasValue)
+            query = query.Where(h => h.PerNightRate >= filters.MinPrice);
+
+        if (filters.MaxPrice.HasValue)
+            query = query.Where(h => h.PerNightRate <= filters.MaxPrice);
+
+        if (!string.IsNullOrWhiteSpace(filters.Location))
+        {
+            var location = filters.Location.Trim();
+            query = query.Where(h => EF.Functions.Like(h.Address, $"%{location}%"));
+        }
+
+        //if (!string.IsNullOrWhiteSpace(filters.Location))
+        //    query = query.Where(h =>h.Address.Contains(filters.Location));// исчет по совпадению слова в адресе, аналог верхней фильтрации
+
+        // generic search param
+        if (!string.IsNullOrWhiteSpace(filters.Search))
+        {
+            var search = filters.Search.Trim();
+            query = query.Where(h => EF.Functions.Like(h.Name, $"%{search}%") ||
+                                    EF.Functions.Like(h.Address, $"%{search}%"));//переводит в SQL LIKE-запрос, что позволяет делать частичные совпадения.
+        }
+
+        query = filters.SortBy?.ToLower() switch
+        {
+            "name" => filters.SortDescending ?
+                query.OrderByDescending(h => h.Name) : query.OrderBy(h => h.Name),
+            "rating" => filters.SortDescending ?
+                query.OrderByDescending(h => h.Rating) : query.OrderBy(h => h.Rating),
+            "price" => filters.SortDescending ?
+                query.OrderByDescending(h => h.PerNightRate) : query.OrderBy(h => h.PerNightRate),
+            _ => query.OrderBy(h => h.Name)
+        };
+
+        var hotels = await query
+          .Include(q => q.Country)
+          .ProjectTo<GetHotelDto>(mapper.ConfigurationProvider)
+          .ToPagedResultAsync(paginationParameters);
+        
         return Result<PagedResult<GetHotelDto>>.Success(hotels);
     }
 

@@ -4,6 +4,7 @@ using BookingHotelAPI.Application.Contracts;
 using BookingHotelAPI.Application.DTOs.Auth;
 using BookingHotelAPI.Common.Constants;
 using BookingHotelAPI.Common.Models.Extentions;
+using BookingHotelAPI.Common.Models.Filtering;
 using BookingHotelAPI.Common.Models.Paging;
 using BookingHotelAPI.Domain.Data;
 using BookingHotelAPI.Domain.Entities;
@@ -16,17 +17,19 @@ public class BookingService(
     IUsersService usersService, 
     IMapper mapper) : IBookingService
 {
-    public async Task<Result<PagedResult<GetBookingDto>>> GetBookingsForHotelAsync(int hotelId, PaginationParameters paginationParameters)
+    public async Task<Result<PagedResult<GetBookingDto>>> GetBookingsForHotelAsync(
+        int hotelId, 
+        PaginationParameters paginationParameters, 
+        BookingFilterParameters filters)
     {
         var hotelExists = await context.Hotels.AnyAsync(h => h.Id == hotelId);
         if (!hotelExists)
             return Result<PagedResult<GetBookingDto>>.Failure(new Error(ErrorCodes.NotFound, $"Hotel '{hotelId}' was not found."));
-
-        var bookings = await context.Bookings
-             .Where(b => b.HotelId == hotelId)
-             .OrderBy(b => b.CheckIn)
-             .ProjectTo<GetBookingDto>(mapper.ConfigurationProvider)
-             .ToPagedResultAsync(paginationParameters);
+     
+        var query = ApplyFilters(hotelId, filters);
+        var bookings = await query
+            .ProjectTo<GetBookingDto>(mapper.ConfigurationProvider)
+            .ToPagedResultAsync(paginationParameters);
 
         return Result<PagedResult<GetBookingDto>>.Success(bookings);
     }
@@ -63,7 +66,10 @@ public class BookingService(
 
         return Result<GetBookingDto>.Success(result);
     }
-    public async Task<Result<PagedResult<GetBookingDto>>> GetUserBookingsForHotelAsync(int hotelId, PaginationParameters paginationParameters)
+    public async Task<Result<PagedResult<GetBookingDto>>> GetUserBookingsForHotelAsync(
+        int hotelId, 
+        PaginationParameters paginationParameters,
+        BookingFilterParameters filters)
     {
         var userId = usersService.UserId;
 
@@ -71,11 +77,11 @@ public class BookingService(
         if (!hotelExists)
             return Result<PagedResult<GetBookingDto>>.Failure(new Error(ErrorCodes.NotFound, $"Hotel '{hotelId}' was not found."));
 
-        var bookings = await context.Bookings
-           .Where(b => b.HotelId == hotelId && b.UserId == userId)
-           .OrderBy(b => b.CheckIn)
-           .ProjectTo<GetBookingDto>(mapper.ConfigurationProvider)
-           .ToPagedResultAsync(paginationParameters);
+        var query = ApplyFilters(hotelId, filters);
+        var bookings = await query
+            .Where(b => b.UserId == userId)
+            .ProjectTo<GetBookingDto>(mapper.ConfigurationProvider)
+            .ToPagedResultAsync(paginationParameters);
 
         return Result<PagedResult<GetBookingDto>>.Success(bookings);
     }
@@ -209,5 +215,46 @@ public class BookingService(
         }
 
         return await query.AnyAsync();
+    }
+
+    private IQueryable<Booking> ApplyFilters(int hotelId, BookingFilterParameters filters)
+    {
+        var query = context.Bookings.Where(b => b.HotelId == hotelId);
+
+        if (filters.Status.HasValue)
+            query = query.Where(b => b.Status == filters.Status.Value);
+
+        if (filters.CheckInFrom.HasValue)
+            query = query.Where(b => b.CheckIn >= filters.CheckInFrom.Value);
+
+        if (filters.CheckInTo.HasValue)
+            query = query.Where(b => b.CheckIn <= filters.CheckInTo.Value);
+
+        if (filters.MinPrice.HasValue)
+            query = query.Where(b => b.TotalPrice >= filters.MinPrice.Value);
+
+        if (filters.MaxPrice.HasValue)
+            query = query.Where(b => b.TotalPrice <= filters.MaxPrice.Value);
+
+        if (filters.MinGuests.HasValue)
+            query = query.Where(b => b.Guests >= filters.MinGuests.Value);
+
+        if (filters.MaxGuests.HasValue)
+            query = query.Where(b => b.Guests <= filters.MaxGuests.Value);
+
+        query = filters.SortBy?.ToLower() switch
+        {
+            "checkin" => filters.SortDescending ?
+                query.OrderByDescending(b => b.CheckIn) : query.OrderBy(b => b.CheckIn),
+            "checkout" => filters.SortDescending ?
+                query.OrderByDescending(b => b.CheckOut) : query.OrderBy(b => b.CheckOut),
+            "price" => filters.SortDescending ?
+                query.OrderByDescending(b => b.TotalPrice) : query.OrderBy(b => b.TotalPrice),
+            "created" => filters.SortDescending ?
+                query.OrderByDescending(b => b.CreatedAtUtc) : query.OrderBy(b => b.CreatedAtUtc),
+            _ => query.OrderBy(b => b.CheckIn)
+        };
+
+        return query;
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace BookingHotelAPI.Application.DTOs.Auth;
+﻿using BookingHotelAPI.Common.Models.Paging;
+
+namespace BookingHotelAPI.Application.DTOs.Auth;
 
 public class GetCountryDto
 {
@@ -15,3 +17,9 @@ public class GetCountriesDto
     public string ShortName { get; set; } = string.Empty;
 }
 
+public class GetCountryHotelsDto
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public PagedResult<GetHotelSlimDto> Hotels { get; set; } = new();
+}

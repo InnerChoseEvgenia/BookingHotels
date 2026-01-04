@@ -6,9 +6,7 @@
 @hotelId=3
 @bookingId=7
 @today={{$localDatetime iso8601}} 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmMC0wMzAzLTQ0MTItOTU5My0xMzcxZWM0YmMxYTQiLCJlbWFpbCI6ImFkbWluQGxvY2FsaG9zdC5jb20iLCJqdGkiOiI3MGM5OWU0OS00OTRmLTRhOWUtYmM0OC04NTk5YmJjMGQ0MjciLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzY3NTE2MDkyLCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ.m1oRy5004bfXNYGGQZZin7bnK1wNPGwXJ8GzRGRFnMY
-@countryId=9
-
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmMC0wMzAzLTQ0MTItOTU5My0xMzcxZWM0YmMxYTQiLCJlbWFpbCI6ImFkbWluQGxvY2FsaG9zdC5jb20iLCJqdGkiOiIzYzIxODRiNS1kOGExLTQyYzAtYjNhMy01ZGMzMjJlOTFjOTMiLCJuYW1lIjoiTGFzdCwgRmlyc3QiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhdG9yIiwiZXhwIjoxNzY3NTI1NjU5LCJpc3MiOiJIb3RlbExpc3RpbmdBUEkiLCJhdWQiOiJIb3RlbExpc3RpbmdBUElDbGllbnQifQ.UXc85LBYKwwfe6A97TOz-fFui02KEaKksZyT8QZ1bgM
 
 # Get Country Hotels - Large Page Size
 GET {{HotelListing.Api_HostAddress}}/api/countries/{{countryId}}/hotels?pageNumber=1&pageSize=20
@@ -16,7 +14,7 @@ Authorization: Bearer {{token}}
 
 
 ###
-GET {{BookingHotelAPI_HostAddress}}/api/countries
+GET {{BookingHotelAPI_HostAddress}}/api/countries?search=K
 # X-Api-Key: {{apiKey}}
 # Authorization: Basic dXNlcjFAbG9jYWxob3N0LmNvbTpQQHNzd29yZDE=
 Authorization: Bearer {{token}}
@@ -53,7 +51,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlOGViNmJmM
 
 ###
 
-GET {{BookingHotelAPI_HostAddress}}/api/hotels
+GET {{BookingHotelAPI_HostAddress}}/api/hotels?search=Kingston
 Authorization: Bearer {{token}}
 ###
 
