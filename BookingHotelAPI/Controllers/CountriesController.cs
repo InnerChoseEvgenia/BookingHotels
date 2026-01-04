@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace BookingHotelAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 //[Authorize]
+[EnableRateLimiting(RateLimitingConstants.FixedPolicy)]
 public class CountriesController(ICountriesService countriesService) : BaseApiController
 {
     // GET: api/Countries
