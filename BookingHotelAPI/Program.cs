@@ -1,6 +1,7 @@
 using BookingHotelAPI.Application.Contracts;
 using BookingHotelAPI.Application.MappingProfiles;
 using BookingHotelAPI.Application.Services;
+using BookingHotelAPI.CachePolicies;
 using BookingHotelAPI.Common.Constants;
 using BookingHotelAPI.Common.Models.Config;
 using BookingHotelAPI.Domain.Data;
@@ -94,7 +95,15 @@ builder.Services.AddControllers()
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddMemoryCache();
+//builder.Services.AddMemoryCache();
+builder.Services.AddOutputCache(options =>
+{
+    options.AddPolicy(CacheConstants.AuthenticatedUserCachingPolicy, builder =>
+    {
+        builder.AddPolicy<AuthenticatedUserCachingPolicy>()
+        .SetCacheKeyPrefix(CacheConstants.AuthenticatedUserCachingPolicyTag);
+    }, true);
+});
 
 var app = builder.Build();
 
@@ -109,6 +118,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseOutputCache();
 
 app.MapControllers();
 

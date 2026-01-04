@@ -6,16 +6,18 @@ using BookingHotelAPI.Common.Models.Paging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace BookingHotelAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
+//[Authorize]
 public class CountriesController(ICountriesService countriesService) : BaseApiController
 {
     // GET: api/Countries
     [HttpGet]
+    [OutputCache(PolicyName = CacheConstants.AuthenticatedUserCachingPolicy)]
     public async Task<ActionResult<IEnumerable<GetCountriesDto>>> GetCountries([FromQuery] CountryFilterParameters filters)
     {
         var result = await countriesService.GetCountriesAsync(filters);
