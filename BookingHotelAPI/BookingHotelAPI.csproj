@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\BookingHotelsAPI.Application\BookingHotelsAPI.Application.csproj" />
-    <ProjectReference Include="..\src\BookingHotelsAPI.Domain\BookingHotelsAPI.Domain.csproj" />
   </ItemGroup>
 
 </Project>

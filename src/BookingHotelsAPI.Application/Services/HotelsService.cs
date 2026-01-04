@@ -3,6 +3,8 @@ using AutoMapper.QueryableExtensions;
 using BookingHotelAPI.Application.Contracts;
 using BookingHotelAPI.Application.DTOs.Auth;
 using BookingHotelAPI.Common.Constants;
+using BookingHotelAPI.Common.Models.Extentions;
+using BookingHotelAPI.Common.Models.Paging;
 using BookingHotelAPI.Domain.Data;
 using BookingHotelAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -13,13 +15,14 @@ public class HotelsService(HotelBookingDbContext context,
     ICountriesService countriesService, 
     IMapper mapper) : IHotelsService
 {
-    public async Task<Result<IEnumerable<GetHotelDto>>> GetHotelsAsync()
+    public async Task<Result<PagedResult<GetHotelDto>>> GetHotelsAsync(PaginationParameters paginationParameters)
     {
         var hotels = await context.Hotels
                     .ProjectTo<GetHotelDto>(mapper.ConfigurationProvider)
-                    .ToListAsync();
+                    .ToPagedResultAsync(paginationParameters);
 
-        return Result<IEnumerable<GetHotelDto>>.Success(hotels);
+
+        return Result<PagedResult<GetHotelDto>>.Success(hotels);
     }
 
     public async Task<Result<GetHotelDto>> GetHotelAsync(int id)

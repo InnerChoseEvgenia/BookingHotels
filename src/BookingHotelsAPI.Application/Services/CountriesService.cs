@@ -3,6 +3,8 @@ using AutoMapper.QueryableExtensions;
 using BookingHotelAPI.Application.Contracts;
 using BookingHotelAPI.Application.DTOs.Auth;
 using BookingHotelAPI.Common.Constants;
+using BookingHotelAPI.Common.Models.Extentions;
+using BookingHotelAPI.Common.Models.Paging;
 using BookingHotelAPI.Domain.Data;
 using BookingHotelAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +31,25 @@ public class CountriesService(HotelBookingDbContext context, IMapper mapper) : I
         return country is null
             ? Result<GetCountryDto>.Failure(new Error(ErrorCodes.NotFound, $"Country '{id}' was not found."))
             : Result<GetCountryDto>.Success(country);
+    }
+
+    public async Task<Result<PagedResult<GetHotelDto>>> GetCountryHotelsAsync(int countryId, PaginationParameters paginationParameters)
+    {
+        var exists = await CountryExistsAsync(countryId);
+        if (!exists)
+        {
+            return Result<PagedResult<GetHotelDto>>.Failure(
+                new Error(ErrorCodes.NotFound, $"Country '{countryId}' was not found."));
+        }
+        var query = context.Hotels
+            .Where(h => h.CountryId == countryId)
+            .OrderBy(h => h.Name)
+            .ProjectTo<GetHotelDto>(mapper.ConfigurationProvider);
+
+       
+        var paged = await query.ToPagedResultAsync(paginationParameters);
+
+        return Result<PagedResult<GetHotelDto>>.Success(paged);
     }
 
     public async Task<Result<GetCountryDto>> CreateCountryAsync(CreateCountryDto createDto)
