@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +19,24 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration
     .GetConnectionString("HotelBookingDbConnectionString");
 builder.Services.AddDbContextPool<HotelBookingDbContext>(options =>
-    options.UseSqlServer(connectionString));
+{
+    options.UseSqlServer(connectionString, sqlOptions =>
+    {
+        sqlOptions.CommandTimeout(30);
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 3,
+            maxRetryDelay: TimeSpan.FromSeconds(5),
+            errorNumbersToAdd: null
+        );
+    });
+    if (builder.Environment.IsDevelopment())
+    {
+        options.EnableSensitiveDataLogging();
+        options.EnableDetailedErrors();
+    }
+
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking); // ? Optional: Global no-tracking (only if most operations are read-only)
+}, poolSize: 128);
 
 builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
        .AddRoles<IdentityRole>()

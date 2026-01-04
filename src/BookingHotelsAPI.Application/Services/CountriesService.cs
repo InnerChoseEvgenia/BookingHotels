@@ -27,6 +27,7 @@ public class CountriesService(HotelBookingDbContext context, IMapper mapper) : I
         }
 
         var countries = await query
+            .AsNoTracking()
             .ProjectTo<GetCountriesDto>(mapper.ConfigurationProvider)
             .ToListAsync();
 
@@ -35,6 +36,7 @@ public class CountriesService(HotelBookingDbContext context, IMapper mapper) : I
     public async Task<Result<GetCountryDto?>> GetCountryAsync(int id)
     {
         var country = await context.Countries
+            .AsNoTracking()
             .Where(q => q.CountryId == id)
             .ProjectTo<GetCountryDto>(mapper.ConfigurationProvider)
             .FirstOrDefaultAsync();
@@ -57,6 +59,7 @@ public class CountriesService(HotelBookingDbContext context, IMapper mapper) : I
         }
 
         var countryName = await context.Countries
+                   .AsNoTracking()
                    .Where(q => q.CountryId == countryId)
                    .Select(q => q.Name)
                    .SingleAsync();
@@ -105,10 +108,7 @@ public class CountriesService(HotelBookingDbContext context, IMapper mapper) : I
             context.Countries.Add(country);
             await context.SaveChangesAsync();
 
-            var dto = await context.Countries
-                .Where(c => c.CountryId == country.CountryId)
-                .ProjectTo<GetCountryDto>(mapper.ConfigurationProvider)
-                .FirstAsync();
+            var dto = mapper.Map<GetCountryDto>(country);
 
             return Result<GetCountryDto>.Success(dto);
         }
@@ -168,12 +168,15 @@ public class CountriesService(HotelBookingDbContext context, IMapper mapper) : I
 
     public async Task<bool> CountryExistsAsync(int id)
     {
-        return await context.Countries.AnyAsync(e => e.CountryId == id);
+        return await context.Countries
+             .AsNoTracking()
+            .AnyAsync(e => e.CountryId == id);
     }
 
     public async Task<bool> CountryExistsAsync(string name)
     {
         return await context.Countries
+             .AsNoTracking()// или на каждом запросе в БД ставить для повышения производительности
             .AnyAsync(c => c.Name.ToLower().Trim() == name.ToLower().Trim());
     }
 
@@ -205,7 +208,9 @@ public class CountriesService(HotelBookingDbContext context, IMapper mapper) : I
         }
 
         mapper.Map(countryDto, country);
-        context.Entry(country).State = EntityState.Modified;
+        context.Entry(country).State = EntityState.Modified;//если глобально устанавливаем нетрекать в програмфайле-
+                                                            //options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                                                            //то при изменении нужно БД руками возвращать треканье
         await context.SaveChangesAsync();
 
         return Result.Success();

@@ -9,6 +9,7 @@ using BookingHotelAPI.Common.Models.Paging;
 using BookingHotelAPI.Domain.Data;
 using BookingHotelAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Metrics;
 
 namespace BookingHotelAPI.Application.Services;
 
@@ -38,11 +39,11 @@ public class HotelsService(HotelBookingDbContext context,
         if (!string.IsNullOrWhiteSpace(filters.Location))
         {
             var location = filters.Location.Trim();
-            query = query.Where(h => EF.Functions.Like(h.Address, $"%{location}%"));
+            query = query.Where(h => EF.Functions.Like(h.Address, $"%{location}%"));// EF.Functions.Like более точная и производительная, чем Contain
         }
 
         //if (!string.IsNullOrWhiteSpace(filters.Location))
-        //    query = query.Where(h =>h.Address.Contains(filters.Location));// исчет по совпадению слова в адресе, аналог верхней фильтрации
+        //    query = query.Where(h =>h.Address.Contains(filters.Location));// ищет по совпадению слова в адресе, аналог верхней фильтрации
 
         // generic search param
         if (!string.IsNullOrWhiteSpace(filters.Search))
@@ -108,6 +109,7 @@ public class HotelsService(HotelBookingDbContext context,
         mapper.Map(updateDto, hotel);
 
         context.Hotels.Update(hotel);
+        context.Entry(hotel).State = EntityState.Modified;
         await context.SaveChangesAsync();
 
         return Result.Success();
@@ -131,10 +133,7 @@ public class HotelsService(HotelBookingDbContext context,
         context.Hotels.Add(hotel);
         await context.SaveChangesAsync();
 
-        var dto = await context.Hotels
-            .Where(h => h.Id == hotel.Id)
-            .ProjectTo<GetHotelDto>(mapper.ConfigurationProvider)
-            .FirstAsync();
+        var dto = mapper.Map<GetHotelDto>(hotel);
 
         return Result<GetHotelDto>.Success(dto);
     }
@@ -154,12 +153,14 @@ public class HotelsService(HotelBookingDbContext context,
     }
     public async Task<bool> HotelExistsAsync(int id)
     {
-        return await context.Hotels.AnyAsync(e => e.Id == id);
+        return await context.Hotels
+            .AnyAsync(e => e.Id == id);
     }
 
     public async Task<bool> HotelExistsAsync(string name, int countryId)
     {
+        var normalizedName = name.ToLower().Trim();
         return await context.Hotels
-            .AnyAsync(e => e.Name.ToLower().Trim() == name.ToLower().Trim() && e.CountryId == countryId);
+            .AnyAsync(e => e.Name.ToLower().Trim() == normalizedName && e.CountryId == countryId);
     }
 }

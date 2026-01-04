@@ -60,6 +60,7 @@ public class BookingService(
         booking.UserId = userId;
 
         context.Bookings.Add(booking);
+        context.Entry(booking).State = EntityState.Modified;
         await context.SaveChangesAsync();
 
         var result = mapper.Map<GetBookingDto>(booking);
@@ -119,7 +120,7 @@ public class BookingService(
         var nights = dto.CheckOut.DayNumber - dto.CheckIn.DayNumber;
         booking.TotalPrice = perNight * nights;
         booking.UpdatedAtUtc = DateTime.UtcNow;
-
+        context.Entry(booking).State = EntityState.Modified;
         await context.SaveChangesAsync();
 
         var updated = mapper.Map<GetBookingDto>(booking);
@@ -146,6 +147,9 @@ public class BookingService(
 
         booking.Status = BookingStatus.Cancelled;
         booking.UpdatedAtUtc = DateTime.UtcNow;
+
+        context.Entry(booking).State = EntityState.Modified;
+
         await context.SaveChangesAsync();
 
         return Result.Success();
@@ -170,6 +174,8 @@ public class BookingService(
 
         booking.Status = BookingStatus.Cancelled;
         booking.UpdatedAtUtc = DateTime.UtcNow;
+
+        context.Entry(booking).State = EntityState.Modified;
         await context.SaveChangesAsync();
 
         return Result.Success();
@@ -193,6 +199,8 @@ public class BookingService(
 
         booking.Status = BookingStatus.Confirmed;
         booking.UpdatedAtUtc = DateTime.UtcNow;
+
+        context.Entry(booking).State = EntityState.Modified;
         await context.SaveChangesAsync();
 
         return Result.Success();

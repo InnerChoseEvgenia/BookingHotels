@@ -6,6 +6,7 @@ using BookingHotelAPI.Domain.Data;
 using BookingHotelAPI.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -50,6 +51,7 @@ public class UsersService(
                     UserId = user.Id,
                     HotelId = registerUserDto.AssociatedHotelId.GetValueOrDefault()
                 });
+            context.Entry(hotelAdmin).State = EntityState.Modified;
             await context.SaveChangesAsync();
         }
 
