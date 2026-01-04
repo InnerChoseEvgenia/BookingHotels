@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
+    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" />
   </ItemGroup>
 
   <ItemGroup>

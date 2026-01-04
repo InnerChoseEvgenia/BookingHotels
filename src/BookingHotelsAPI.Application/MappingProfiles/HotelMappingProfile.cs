@@ -28,6 +28,10 @@ public class CountryMappingProfile : Profile
         CreateMap<Country, GetCountriesDto>()
             .ForMember(d => d.Id, opt => opt.MapFrom(s => s.CountryId));
         CreateMap<CreateCountryDto, Country>();
+        CreateMap<Country, UpdateCountryDto>()
+            .ForMember(d => d.CountryId, opt => opt.MapFrom(s => s.CountryId))
+            .ReverseMap() //позволяет перевернуть мапинг из пункта назначения в источник
+            .ForMember(d => d.CountryId, opt => opt.MapFrom(s => s.CountryId));
     }
 }
 

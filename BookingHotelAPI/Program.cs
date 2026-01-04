@@ -70,6 +70,7 @@ builder.Services.AddAutoMapper(cfg => { }, typeof(HotelMappingProfile).Assembly)
 
 
 builder.Services.AddControllers()
+    .AddNewtonsoftJson()
     .AddJsonOptions(opt =>
     {
         opt.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;

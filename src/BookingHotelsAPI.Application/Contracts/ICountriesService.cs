@@ -2,6 +2,7 @@
 using BookingHotelAPI.Common.Constants;
 using BookingHotelAPI.Common.Models.Filtering;
 using BookingHotelAPI.Common.Models.Paging;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace BookingHotelAPI.Application.Contracts;
 public interface ICountriesService
@@ -14,4 +15,5 @@ public interface ICountriesService
     Task<Result<GetCountryDto?>> GetCountryAsync(int id);
     Task<Result> UpdateCountryAsync(int id, UpdateCountryDto updateDto);
     Task<Result<GetCountryHotelsDto>> GetCountryHotelsAsync(int countryId, PaginationParameters paginationParameters, CountryFilterParameters filters);
+    Task<Result> PatchCountryAsync(int id, JsonPatchDocument<UpdateCountryDto> patchDoc);
 }
